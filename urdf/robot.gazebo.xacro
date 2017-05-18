@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<robot>
+  <gazebo reference="base_link">
+    <mu1 value="1.0"/>
+    <mu2 value="1.0"/>
+    <kp value="10000.0"/>
+    <kd value="1.0"/>
+    <fdir1 value="1 0 0"/>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+
+  <gazebo reference="arm_link">
+    <mu1 value="1.0"/>
+    <mu2 value="1.0"/>
+    <kp value="10000.0"/>
+    <kd value="1.0"/>
+    <fdir1 value="1 0 0"/>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+
+  <gazebo reference="end_effector">
+    <mu1 value="1.0"/>
+    <mu2 value="1.0"/>
+    <kp value="10000.0"/>
+    <kd value="1.0"/>
+    <fdir1 value="1 0 0"/>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+
+
+  <gazebo reference="base_to_arm_joint">
+    <provideFeedback>true</provideFeedback>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+
+  <gazebo reference="ft_sensor_joint">
+    <provideFeedback>true</provideFeedback>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+
+	<gazebo>
+		<plugin name="ft_sensor" filename="libgazebo_ros_ft_sensor.so">
+			<updateRate>100.0</updateRate>
+			<topicName>ftsensor/raw</topicName>
+			<jointName>ft_sensor_joint</jointName>
+			<gaussianNoise>0.0</gaussianNoise>
+		</plugin>
+	</gazebo>
+
+	<gazebo>
+		<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/simple_bot</robotNamespace>
+		</plugin>
+	</gazebo>
+</robot>

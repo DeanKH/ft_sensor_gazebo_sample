@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+
+<robot name="simple_bot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:property name="height1" value="1.0"/>
+  <xacro:property name="width" value="0.1"/>
+  <xacro:property name="mass1" value="1.0"/>
+  <xacro:include filename="$(find ft_sensor_gazebo_sample)/urdf/robot.gazebo.xacro"/>
+  <xacro:include filename="$(find ft_sensor_gazebo_sample)/urdf/robot.transmission.xacro"/>
+
+  <link name="world"/>
+  <joint name="world_joint" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+  </joint>
+  
+  <link name="base_link">
+    <collision>
+      <origin xyz="0 0 ${height1/2}" rpy="0 0 0"/>
+      <geometry>
+        <box size="${width} ${width} ${height1}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 ${height1/2}" rpy="0 0 0"/>
+      <geometry>
+        <box size="${width} ${width} ${height1}"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 ${height1/2}" rpy= "0 0 0"/>
+      <mass value="${mass1}"/>
+      <inertia
+				ixx="${mass1 / 12.0 * (width*width + height1*height1)}" ixy="0.0" ixz="0.0"
+				iyy="${mass1 / 12.0 * (width*width + height1*height1)}" iyz="0.0"
+				izz="${mass1 / 12.0 * (width*width + width+width)}"/>
+    </inertial>
+  </link>
+
+  <joint name="base_to_arm_joint" type="prismatic">
+    <parent  link="base_link"/>
+    <child link="arm_link"/>
+    <limit effort="1000.0" lower="-0.5" upper="0.5" velocity="0.5"/>
+    <origin xyz="0 0 ${height1+width/2}" rpy="0 0 0"/>
+  </joint>
+
+  <link name="arm_link">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="${height1} ${width} ${width}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="${height1} ${width} ${width}"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy= "0 0 0"/>
+      <mass value="${mass1}"/>
+      <inertia
+				ixx="${mass1 / 12.0 * (width*width + height1*height1)}" ixy="0.0" ixz="0.0"
+				iyy="${mass1 / 12.0 * (width*width + height1*height1)}" iyz="0.0"
+				izz="${mass1 / 12.0 * (width*width + width+width)}"/>
+    </inertial>
+  </link>
+
+	<joint name="ft_sensor_joint" type="revolute">
+		<parent link="arm_link"/> 
+		<child link="end_effector"/> 
+    <origin xyz="${height1/2} 0 0" rpy="0 0 0"/>
+		<axis xyz="0 0 1"/>
+		<limit lower="0" upper="0" effort="0.0" velocity="0.0"/>
+	</joint>
+
+  <link name="end_effector">
+    <collision>
+      <origin xyz="${width/2} 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="${width} ${width} ${width}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="${width/2} 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="${width} ${width} ${width}"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy= "0 0 0"/>
+      <mass value="${mass1}"/>
+      <inertia
+				ixx="${mass1 / 12.0 * (width*width + width*width)}" ixy="0.0" ixz="0.0"
+				iyy="${mass1 / 12.0 * (width*width + width*width)}" iyz="0.0"
+				izz="${mass1 / 12.0 * (width*width + width+width)}"/>
+    </inertial>
+  </link>
+</robot>

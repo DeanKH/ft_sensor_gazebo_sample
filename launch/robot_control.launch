@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<launch>
+ 	<rosparam param="source_list">[/simple_bot/joint_states]</rosparam>
+ <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find ft_sensor_gazebo_sample)/config/robot_control.yaml" command="load"/>
+
+  <!-- load the controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+		output="screen" ns="/simple_bot" args="
+		joint_state_controller
+		linear_joint_position_controller
+		"/>
+
+  <!-- convert joint states to TF transforms for rviz, etc -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+	respawn="false" output="screen">
+    <remap from="/joint_states" to="/simple_bot/joint_states" />
+  </node>
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find ft_sensor_gazebo_sample)/launch/robot.rviz"/>
+</launch>
+
