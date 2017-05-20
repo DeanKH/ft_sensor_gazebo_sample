@@ -26,5 +26,7 @@
 		
 	<!-- ros_control agent launch file -->
 		<include file="$(find ft_sensor_gazebo_sample)/launch/robot_control.launch" />
+    <node name="rqt_plot" pkg="rqt_plot" type="rqt_plot"/>
+    <node name="rqt_publisher" pkg="rqt_publisher" type="rqt_publisher"/>
 </launch>
 
