@@ -10,6 +10,12 @@
 			<uri>model://sun</uri>
 		</include>
 
+		<include>
+			<uri>model://grey_wall</uri>
+			<name>wall</name>
+			<pose>0.90 0 0.0 0 0 1.57</pose>
+		</include>
+
 		<!-- Focus camera on tall pendulum -->
 		<gui fullscreen='0'>
 			<camera name='user_camera'>
