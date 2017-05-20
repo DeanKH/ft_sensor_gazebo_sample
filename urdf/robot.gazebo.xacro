@@ -6,6 +6,7 @@
     <kp value="10000.0"/>
     <kd value="1.0"/>
     <fdir1 value="1 0 0"/>
+		<material>Gazebo/White</material>
     <turnGravityOff>false</turnGravityOff>
   </gazebo>
 
@@ -15,6 +16,7 @@
     <kp value="10000.0"/>
     <kd value="1.0"/>
     <fdir1 value="1 0 0"/>
+		<material>Gazebo/White</material>
     <turnGravityOff>false</turnGravityOff>
   </gazebo>
 
@@ -24,6 +26,7 @@
     <kp value="10000.0"/>
     <kd value="1.0"/>
     <fdir1 value="1 0 0"/>
+		<material>Gazebo/Red</material>
     <turnGravityOff>false</turnGravityOff>
   </gazebo>
 
